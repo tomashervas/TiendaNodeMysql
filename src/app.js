@@ -13,7 +13,8 @@ app.use('/api/clientes', require('./routes/clientes'))
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
-  sequelize.authenticate().then(()=>{
+
+  sequelize.sync({force: true}).then(()=>{
     console.log('conectado a la bbdd')
   }).catch(err=>{
     console.log('error', err)
