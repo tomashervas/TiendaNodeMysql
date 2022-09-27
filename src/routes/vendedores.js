@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Cliente  = require('../models/Cliente')
+const Vendedor  = require('../models/Vendedor')
 
 
 router.get('/', (req, res) => {
 
-    Cliente.findAll().then(c=>{
+    Vendedor.findAll().then(c=>{
         res.status(200).json(c);
     }).catch(err=>{
         let errorList = err.errors.map(e=>{
@@ -16,11 +16,10 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const { nombre, apellidos, direccion, email } = req.body;
-    Cliente.create({
+    const { nombre, apellidos, email } = req.body;
+    Vendedor.create({
         nombre,
         apellidos,
-        direccion,
         email
     }).then(c=>{
         res.status(201).json(c);
@@ -34,9 +33,9 @@ router.post('/', (req, res) => {
 
 router.patch('/:id', (req, res)=>{
         const {id} = req.params;
-        const {nombre, apellidos, direccion} = req.body;
-         Cliente.update({
-            nombre, apellidos, direccion
+        const {nombre, apellidos} = req.body;
+         Vendedor.update({
+            nombre, apellidos
          },{
              where: {
                  id
@@ -55,7 +54,7 @@ router.patch('/:id', (req, res)=>{
 router.delete('/:id', (req, res)=>{
    const {id} = req.params;
 
-    Cliente.destroy({
+    Vendedor.destroy({
         where: {
             id
         }
